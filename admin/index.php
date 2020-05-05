@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if(isset($_SESSION["login"])){
     header("Location: index.php");
     exit;
@@ -21,7 +23,7 @@ if(isset($_POST["login"])) {
             $_SESSION["login"] = true;
 
 
-            header("Location:indexa.php");
+            header("Location: indexa.php");
             exit;
         }
     }

@@ -1,3 +1,37 @@
+<?php
+require_once 'admin/config/db.php';
+
+function query($query){
+  global $db;
+  
+$result = mysqli_query($db, $query);
+$rows = [];
+while($row = mysqli_fetch_assoc($result)){
+  $rows[] = $row;
+}
+return $rows;
+}
+
+$jumlahDataPerHalaman = 5;
+$jumlahData = count(query("SELECT * FROM pages"));
+$jumlahHalaman =ceil($jumlahData / $jumlahDataPerHalaman);
+
+$halamanAktif = (isset($_GET["halaman"])) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+$pgs = query("SELECT * FROM pages LIMIT $awalData,$jumlahDataPerHalaman");
+
+if(isset($_POST["cari"])){
+  $pgs = cari($_POST["keyword"]);
+}
+
+function cari($keyword){
+  $query = "SELECT * FROM pages WHERE title LIKE '%$keyword%'";
+  return query($query);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,45 +42,46 @@
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/css/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/custom_bootstrap.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link href="admin/assets/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/plyr.css">
     <link rel="stylesheet" href="assets/css/aos.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet" href="assets/css/themify-icons.css">
     <link rel="shortcut icon" href="assets/images/index/traveller.jpg">
-    <style>
-      img{
-        transition: 4s;
-      }
-      img:hover{
-        transform: scale(1.5);
-      }
-    </style>
   </head>
 
   <body>
     <div id="main">
+
+    <!-- header -->
       <header>
         <div class="header-wrapper">
           <div class="container">
             <div class="header-menu">
               <div class="row no-gutters align-items-center justify-content-center">
-              <div class="col-4 col-md-2">
-                <a class="logo" disabled=""><img src="assets/images/index/traveller.jpg" alt="logo" width="90%"></a>
-              </div>
-                <div class="col-8 col-md-8">
-                <div class="mobile-menu"><a href="#" id="showMenu"><i class="fas fa-bars"></i></a></div>
-                  <nav class="navigation">
-                    <ul>
-                      <li class="nav-item"><a class="pisen-nav-link active" href="index.php">Home</a></i>
-                      <li class="nav-item"><a class="pisen-nav-link" href="about.php">About Us</a></li>
-                      <li class="nav-item"><a class="pisen-nav-link" href="contact.php">Contact</a></li>
-                    </ul>
-                  </nav>
+                <div class="col-4 col-md-2">
+                  <a class="logo" disabled="">
+                    <img src="assets/images/index/traveller.jpg" alt="logo" width="90%">
+                  </a>
                 </div>
-                <div class="col-0 col-xl-2">
-                  <div class="menu-function">
-                    <div id="search"><a class="search-btn" href="#"><i class="fas fa-search"></i></a></div>
+                <div class="col-8 col-md-8">
+                <div class="mobile-menu">
+                  <a href="#" id="showMenu"><i class="fas fa-bars"></i></a>
+                </div>
+                <nav class="navigation">
+                  <ul>
+                    <li class="nav-item"><a class="pisen-nav-link active" href="index.php">Home</a></i>
+                    <li class="nav-item"><a class="pisen-nav-link" href="cas.php">Contact | About Us</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="col-0 col-xl-2">
+                <div class="menu-function">
+                  <div id="search">
+                  <form action="" method="post">
+                    <input type="text" name="keyword" id="" size="10" autofocus placeholder="Search..." autocomplete="off">
+                    <button type="submit" name="cari"><i class="fas fa-search"></i></button>
+                  </form>
                   </div>
                 </div>
               </div>
@@ -56,136 +91,72 @@
       </header>
       <!--End header-->
 
-      <section class="posts blog-2col">
-        <div class="container">
-        <h2 class="text-center"> Tempat Wisata di <b>Indonesia</b> </h2> <br>
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-                <div class="post-img">
-                  <img src="assets/images/index/shutterstock_716559922.jpg" alt="post image">
-                </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="mandalika.php">Mandalika, Nusa Tenggara Barat</a>
-                  <p class="post-describe">
-                    Jika Lombok memang dikenal akan keindahan gili-gilinya, Mandalika juga nggak mau kalah. Untuk menarik perhatian dunia, pemerintah tengah membangun resort dan infrastruktur lainnya. Bahkan kecantikan pantai-pantainya nggak kalah menarik dengan yang ada di Bali.
-                    Lokasi ini juga menjadi tempat sempurna untuk berselancar. Terutama di Pantai Ubrug. Tak hanya punya pemandangan yang begitu menawan, ombak besarnya pun cukup menantang.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-                <div class="post-img">
-                  <img src="assets/images/index/Sunrise-at-Peucang-Island-Ujung-Kulon-National-Park-Banten-Indonesia-Image.jpg" alt="post image">
-                </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="pueceng.php">Pulau Peucang, Banten</a>
-                  <p class="post-describe">
-                    Teman Traveler sudah pernah berkunjung ke Taman Nasional Ujung Kulon? Nah! Pulau Peucang berada di bagian timur kawasan tersebut! Bukan main-main, pulau ini sudah ditetapkan menjadi salah satu situs warisan budaya UNESCO lho!
-                    Berlibur ke sini, wisatawan akan bertemu dengan berbagai jenis tumbuhan dan hewan khas Banten seperti Banteng Jawa, Lutung, Merak Hijau dan Rusa. Bukan hanya itu, pasir yang putih serta air laut yang biru di Pulau Peucang juga akan memanjakan mata!
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-              <div class="post-img">
-                <img src="assets/images/index/shutterstock_98778623.jpg" alt="post image">
-              </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="#0">Kepulauan Seribu, DKI Jakarta</a>
-                  <p class="post-describe">
-                    Terletak di bagian utara Jakarta, Kepulauan Seribu seperti surga berjarak dekat yang bisa dikunjungi warga ibu kota saat penat. Berbagai atraksi menyenangkan bisa Teman Traveler dapatkan di sini! Seperti mengunjungi zona konservasi sekaligus tempat wisata di Taman Nasional Kepulauan Seribu.
-                    Bukan hanya itu, wisatawan juga bisa mengunjungi beberapa pulau cantik yang ada di Kepulauan Seribu. Seperti Pulau Onrust, Pulau Kahyangan dan Pulau Bidadari. Perairan di pulau-pulau tersebut cocok untuk snorkeling, menyelam dan beberapa keseruan lainnya!
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-                <div class="post-img">
-                  <img src="assets/images/index/60-Tempat-Wisata-di-Indonesia-yang-Bikin-Tambah-Bangga-4.jpg" alt="post image">
-                </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="nusadua.php">Nusa Dua, Bali</a>
-                  <p class="post-describe">
-                    Masih di Bali ada destinasi wisata lainnya yang tidak kalah eksotis, yakni Nusa Dua. Di sini pantainya memiliki warna putih dengan air laut yang biru jernih. Kamu bisa menikmati berbagai panorama yang ditawarkan, atau bisa melakukan aktivitas menyenangkan seperti halnya berselancar.
-                    Fasilitas di Nusa dua sangat banyak sekali dan lengkap, mulai dari restoran, penginapan kelas internasional, pusat-pusat perbelanjaan, dan lain-lain. Datang ke Nusa Dua jika sedang berada di Bali, yakin kamu pasti akan memiliki keinginan untuk datang kembali.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-                <div class="post-img">
-                  <img src="assets/images/index/60-Tempat-Wisata-di-Indonesia-yang-Bikin-Tambah-Bangga-5.jpg" alt="post image">
-                </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="kelimutu.php">Taman Nasional Gunung Kelimutu, Flores, Nusa Tenggara Timur</a>
-                  <p class="post-describe">
-                    Dari Pulau Dewata kita melipir ke Nusa Tenggara Timur (NTT). Wilayah ini juga menawarkan beragam destinasi wisata yang memesona, tidak kalah dengan destinasi lainnya di Indonesia. Termasuk juga ada Taman Nasional Gunung Kelimutu.
-                    Tempat wisata di NTT ini di dalamnya banyak daya tarik. Misalnya saja ada bukit-bukit landai, gunung-gunung, sampai dengan gunung setinggi 1.731 yang bernama Gunung Kelibra. Ditambah lagi dengan keberadaan Gunung Kelimutu dan danau tiga warna yang cantik.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6" align="justify">
-              <div class="post-block post-classic">
-                <div class="post-img">
-                  <img src="assets/images/index/60-Tempat-Wisata-di-Indonesia-yang-Bikin-Tambah-Bangga-5.jpg" alt="post image">
-                </div>
-                <div class="post-detail">
-                  <a class="post-title regular" href="kelimutu.php">Taman Nasional Gunung Kelimutu, Flores, Nusa Tenggara Timur</a>
-                  <p class="post-describe">
-                    Dari Pulau Dewata kita melipir ke Nusa Tenggara Timur (NTT). Wilayah ini juga menawarkan beragam destinasi wisata yang memesona, tidak kalah dengan destinasi lainnya di Indonesia. Termasuk juga ada Taman Nasional Gunung Kelimutu.
-                    Tempat wisata di NTT ini di dalamnya banyak daya tarik. Misalnya saja ada bukit-bukit landai, gunung-gunung, sampai dengan gunung setinggi 1.731 yang bernama Gunung Kelibra. Ditambah lagi dengan keberadaan Gunung Kelimutu dan danau tiga warna yang cantik.
-                  </p>
-                </div>
-              </div>
-            </div>
+      <h2 class="text-center"> Tempat Wisata di <b>Indonesia</b> </h2> <br>
 
-            <div class="row">
-            <div class="col-full">
-              <nav class="pgn">
-                <ul class="text-dark">
-                  <li>
-                    <span class="pgn__num current" href="#0">1</span>
-                    <a href="index2.php" class="pgn__num">2</a>
-                    <a href="index3.php" class="pgn__num">3</a>
-                    <a class="pgn__next" href="index2.php">></a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+      <!-- start of content -->
+      <?php foreach($pgs as $row) : ?>
+      <section>
+        <div class="container">
+          <div class="container row justify-content-center">
+            <div class="col-12 col-md-12" align="justify">
+              <div class="post-block post-classic">
+                <div class="post-img mt-5 text-center">
+                  <img src="assets/images/index/<?= $row["foto"]; ?>" width="100%" alt="post image">
+                </div>
+                <div class="post-detail">
+                  <a class="post-title regular" href=""> <?php echo $row["title"]; ?> </a>
+                  <p class="post-describe">
+                    <?php echo $row["content"]; ?>
+                  </p>
+                </div>
+              </div>
             </div>       
           </div>
         </div>
-      </section><!--End posts-->
+      </section>
+      <?php endforeach; ?>
+      <!-- end of content -->
+
+      <div class="container mb-5 mt-5">
+        <div class="text-center">
+          <?php if($halamanAktif > 1) : ?>
+           <a href="?halaman=<?= $halamanAktif- 1; ?>">&laquo;</a>
+          <?php endif; ?>
+
+          <?php for($i=1; $i <= $jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif) : ?>
+              <a href="?halaman=<?= $i; ?>" style="font-weight: bold; color:red;"><?= $i; ?></a>
+            <?php else : ?>
+              <a href="?halaman=<?= $i; ?>"><?= $i; ?></a>
+            <?php endif; ?>
+          <?php endfor; ?>
+
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+            <a href="?halaman=<?= $halamanAktif + 1; ?>">&raquo;</a>
+          <?php endif; ?>
+        </div>
+      </div>
 
       <!--Start footer-->
       <footer class="bg-dark">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12">
+            <div class="text-center col-sm-12">
+              <div class="footer-contact mt-5">
+                <h3 class="footer-link--title text-white"> Information</h3>
+                <div class="contact-method">
+                  <p class="text-white"><i class="fa fa-envelope"></i> traveller@gmail.com</p>
+                  <p class="text-white"><i class="fa fa-mobile"></i> +(10) 345 6789 10</p>
+                  <p class="text-white"><i class="fa fa-thumbtack"></i> Clapar Purwodadi Tegalrejo Magelang</p>
                 </div>
-                <div class="text-center col-sm-12">
-                  <div class="footer-contact mt-5">
-                    <h3 class="footer-link--title text-white"> Information</h3>
-                    <div class="contact-method">
-                      <p class="text-white"><i class="fa fa-envelope"></i> traveller@gmail.com</p>
-                      <p class="text-white"><i class="fa fa-mobile"></i> +(10) 345 6789 10</p>
-                      <p class="text-white"><i class="fa fa-thumbtack"></i> Clapar Purwodadi Tegalrejo Magelang</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center col-sm-12 col-md-12 col-lg-12">
-                <div class="copyright-text">
+              </div>
+            </div>
+            <div class="text-center col-sm-12 col-md-12 col-lg-12">
+              <div class="copyright-text">
                 <p class="text-white text-right">
                   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
                 </p>
-                </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
