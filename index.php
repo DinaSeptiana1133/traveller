@@ -104,7 +104,7 @@ function cari($keyword){
                   <img src="assets/images/index/<?= $row["foto"]; ?>" width="100%" alt="post image">
                 </div>
                 <div class="post-detail">
-                  <a class="post-title regular" href=""> <?php echo $row["title"]; ?> </a>
+                  <a class="post-title regular" href="detail.php?id=<?= $row["id"]; ?>"> <?php echo $row["title"]; ?> </a>
                   <p class="post-describe">
                     <?php echo $row["content"]; ?>
                   </p>

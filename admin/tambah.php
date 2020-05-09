@@ -33,7 +33,7 @@ if(isset($_POST["submit"])){
 function query($query){
   global $db;
   
-// ambil data dari tabel mahasiswa
+// ambil data dari tabel pages
 $result = mysqli_query($db, $query);
 $rows = [];
 while($row = mysqli_fetch_assoc($result)){
@@ -109,7 +109,7 @@ function upload(){
     <title>Tambah data</title>
 </head>
 <body>
-    <h1>Tambah Data Mahasiswa</h1>
+    <h1>Tambah Data</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <ul>
             <li> 
@@ -117,11 +117,11 @@ function upload(){
                 <input type="text" name="title" id="title" required>
             </li>
             <li>
-                <label for="content"> content : </label>
+                <label for="content"> Content : </label>
                 <input type="text" name="content" id="content" required>
             </li>
             <li>
-                <label for="foto"> foto : </label>
+                <label for="foto"> Foto : </label>
                 <input type="file" name="foto" id="foto" required>
             </li>
             <li>
