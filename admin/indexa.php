@@ -150,8 +150,8 @@ $pgs = query("SELECT * FROM pages");
         <tr>
             <td><?php echo $i; ?></td>
             <td>
-                <a href="edit.php?id=<?php echo $row["id"]; ?>">Edit</a> |
-                <a href="hapus.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('serius?');">Hapus</a>
+                <a href="editp.php?id=<?php echo $row["id"]; ?>">Edit</a> |
+                <a href="hapusp.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('serius?');">Hapus</a>
             </td>
             <td><img src="../assets/images/index/<?php echo $row["foto"]; ?>" width="70" alt=""></td>
             <td><?php echo $row["title"]; ?></td>
@@ -199,7 +199,7 @@ $pgs = query("SELECT * FROM pages");
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Apakah anda yakin akan logout?</div>
+        <div class="modal-body">Logout Right Now?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="index.php">Logout</a>

@@ -8,7 +8,7 @@ if(!isset($_SESSION["login"])){
 
 require 'config/db.php';
 $id = $_GET["id"];
-$pgs = query("SELECT * FROM pages where id=$id")[0];
+$dtl = query("SELECT * FROM detail where id=$id")[0];
 if(isset($_POST["submit"])){
 
     if(edit($_POST) > 0){
@@ -38,30 +38,29 @@ return $rows;
 }
 
 function edit($data){
-    global $db;
+  global $db;
 
-    $id = $data["id"];
-    $title = $data["title"];
-    $content = $data["content"];
-    $fotoLama = $data["fotoLama"];
+  $id = $data["id"];
+  $title = $data["title"];
+  $content = $data["content"];
+  $fotoLama = $data["fotoLama"];
 
-    // cek apakah user pilih gambar baru atau tidak
-    if($_FILES['foto']['error'] === 4 ){
-        $foto = $fotoLama;
-    } else {
-        $foto = upload();
-    }
+  // cek apakah user pilih gambar baru atau tidak
+  if($_FILES['foto']['error'] === 4 ){
+    $foto = $fotoLama;
+  } else {
+    $foto = upload();
+  }
 
-    // query insert data
-    $query = "UPDATE pages SET
-                title = '$title',
-                content = '$content',
-                foto = '$foto'
-                 where id=$id
-                ";
-    mysqli_query($db, $query);
+  // query insert data
+  $query = "UPDATE detail SET
+              title = '$title',
+              content = '$content',
+              foto = '$foto'
+            where id=$id";
+  mysqli_query($db, $query);
 
-    return mysqli_affected_rows($db);
+  return mysqli_affected_rows($db);
 }
 
 function upload(){
@@ -101,7 +100,7 @@ function upload(){
   $namaFileBaru .= $ekstensifoto;
 
 
-  move_uploaded_file($tmpName, '../assets/images/index/'.$namaFileBaru);
+  move_uploaded_file($tmpName, '../assets/images/detail/'.$namaFileBaru);
   return $namaFileBaru;
 }
 
@@ -217,8 +216,8 @@ function upload(){
           <!-- Content Row -->
           <div class="row">
             <form action="" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="id" value="<?php echo $pgs["id"]; ?> ">
-              <input type="hidden" name="fotoLama" value="<?php echo $pgs["foto"]; ?> ">
+              <input type="hidden" name="id" value="<?php echo $dtl["id"]; ?> ">
+              <input type="hidden" name="fotoLama" value="<?php echo $dtl["foto"]; ?> ">
 
               <!-- Foto -->
               <div class="col-xl-12 mb-2">
@@ -228,7 +227,7 @@ function upload(){
                   </div>
                   <div class="card-body">
                     <div>
-                      <img src="../assets/images/index/<?php echo $pgs["foto"]; ?>" width="80%">
+                      <img src="../assets/images/detail/<?php echo $dtl["foto"]; ?>" width="80%">
                     </div> <br>
                     <input type="file" name="foto" id="foto">
                   </div>
@@ -242,7 +241,7 @@ function upload(){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Title</div>
-                          <input class="col-sm-12" type="text" name="title" id="title" value="<?php echo $pgs["title"]; ?>">
+                          <input class="col-sm-12" type="text" name="title" id="title" value="<?php echo $dtl["title"]; ?>">
                       </div>
                     </div>
                   </div>
@@ -256,7 +255,7 @@ function upload(){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Content</div>
-                          <input class="col-sm-12" type="text" name="content" id="content" value="<?php echo $pgs["content"]; ?>">
+                          <input class="col-sm-12" type="text" name="content" id="content" value="<?php echo $dtl["content"]; ?>">
                       </div>
                     </div>
                   </div>
@@ -312,7 +311,7 @@ function upload(){
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Apakah anda yakin akan logout?</div>
+        <div class="modal-body">Logout Right Now?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="index.php">Logout</a>

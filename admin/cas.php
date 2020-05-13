@@ -138,7 +138,7 @@ $pgs = query("SELECT * FROM contact");
         <tr>
             <td><?php echo $i; ?></td>
             <td>
-                <a href="delete.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('serius?');">Hapus</a>
+                <a href="delete.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('Hapus Data?');">Hapus</a>
             </td>
             <td><?php echo $row["name"]; ?></td>
             <td><?php echo $row["email"]; ?></td>
@@ -180,7 +180,7 @@ $pgs = query("SELECT * FROM contact");
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Apakah anda yakin akan logout?</div>
+        <div class="modal-body">Logout Right Now?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="index.php">Logout</a>

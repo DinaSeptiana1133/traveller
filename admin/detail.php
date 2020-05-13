@@ -54,7 +54,7 @@ $pgs = query("SELECT * FROM detail");
       <hr class="sidebar-divider">
 
       <!-- Nav Item - Home -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="indexa.php">
           <i class="fas fa-fw fa-home"></i>
           <span>Home</span>
@@ -70,7 +70,7 @@ $pgs = query("SELECT * FROM detail");
       </li>
       
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="detail.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Detail</span></a>
@@ -132,7 +132,7 @@ $pgs = query("SELECT * FROM detail");
 
           <!-- Content Row -->
           <!-- <div class="row"> -->
-          <div class="container text-right"><a href="tambah.php">Tambah Data Detail</a></div>
+          <div class="container text-right"><a href="addd.php">Tambah Data</a></div>
 
            <br>
 
@@ -150,10 +150,10 @@ $pgs = query("SELECT * FROM detail");
         <tr>
             <td><?php echo $i; ?></td>
             <td>
-                <a href="edit.php?id=<?php echo $row["id"]; ?>">Edit</a> |
-                <a href="hapus.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('serius?');">Hapus</a>
+                <a href="editd.php?id=<?php echo $row["id"]; ?>">Edit</a> |
+                <a href="hapusd.php?id=<?php echo $row["id"]; ?>" onclick="return confirm('serius?');">Hapus</a>
             </td>
-            <td><img src="../assets/images/index/<?php echo $row["foto"]; ?>" width="70" alt=""></td>
+            <td><img src="../assets/images/detail/<?php echo $row["foto"]; ?>" width="70" alt=""></td>
             <td><?php echo $row["title"]; ?></td>
             <td><?php echo $row["content"]; ?></td>
         </tr>
@@ -199,7 +199,7 @@ $pgs = query("SELECT * FROM detail");
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Apakah anda yakin akan logout?</div>
+        <div class="modal-body">Logout Right Now?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="index.php">Logout</a>

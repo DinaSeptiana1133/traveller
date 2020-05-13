@@ -9,7 +9,7 @@ if(!isset($_SESSION["login"])){
 require 'config/db.php';
 function hapus($id) {
     global $db;
-    mysqli_query($db, "DELETE FROM contact WHERE id = $id");
+    mysqli_query($db, "DELETE FROM detail WHERE id = $id");
     return mysqli_affected_rows($db);
 }
 
@@ -18,11 +18,13 @@ $id = $_GET["id"];
 if( hapus($id) > 0){
     echo "
         <script> alert('data berhasil dihapus');
-        document.location.href = 'cas.php';
-        </script>";
+        document.location.href = 'detail.php';
+        </script>
+    ";
 } else {
     echo "<script> alert('data gagal dihapus');
-    document.location.href = 'cas.php';
-    </script>";
-}
+    document.location.href = 'detail.php';
+    </script>
+    ";
+    }
 ?>

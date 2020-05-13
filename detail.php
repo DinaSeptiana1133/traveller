@@ -20,7 +20,7 @@ $data = mysqli_fetch_array($query);
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Traveller | Home</title>
+    <title>Traveller | Detail</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <link rel="stylesheet" href="assets/css/style.css">
