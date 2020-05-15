@@ -133,7 +133,7 @@ function upload(){
       <hr class="sidebar-divider">
 
       <!-- Home -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="indexa.php">
           <i class="fas fa-fw fa-home"></i>
           <span>Home</span>
@@ -142,33 +142,19 @@ function upload(){
 
       <!-- Contact -->
       <li class="nav-item">
-        <a class="nav-link" href="contact.php">
+        <a class="nav-link" href="cas.php">
           <i class="fas fa-fw fa-phone"></i>
-          <span>Contact</span>
-        </a>
-      </li>
-
-      <!-- About -->
-      <li class="nav-item">
-        <a class="nav-link" href="about.php">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>About</span>
+          <span>Contact | About Us</span>
         </a>
       </li>
       
       <!-- Detail -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="detail.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Detail</span></a>
       </li>
 
-      <!-- Information -->
-      <li class="nav-item">
-        <a class="nav-link" href="info.php">
-          <i class="fas fa-fw fa-search"></i>
-          <span>Information</span></a>
-      </li>
 
       <hr class="sidebar-divider d-none d-md-block">
       <div class="text-center d-none d-md-inline">
@@ -255,7 +241,7 @@ function upload(){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Content</div>
-                          <input class="col-sm-12" type="text" name="content" id="content" value="<?php echo $dtl["content"]; ?>">
+                          <textarea cols="140" rows="25" name="content"><?php echo $dtl["content"]; ?></textarea>
                       </div>
                     </div>
                   </div>

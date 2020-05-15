@@ -76,13 +76,6 @@ $pgs = query("SELECT * FROM pages");
           <span>Detail</span></a>
       </li>
 
-      <!-- Nav Item - Information -->
-      <li class="nav-item">
-        <a class="nav-link" href="info.php">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Information</span></a>
-      </li>
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

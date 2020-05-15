@@ -76,13 +76,6 @@ $pgs = query("SELECT * FROM detail");
           <span>Detail</span></a>
       </li>
 
-      <!-- Nav Item - Information -->
-      <li class="nav-item">
-        <a class="nav-link" href="info.php">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Information</span></a>
-      </li>
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -136,7 +129,7 @@ $pgs = query("SELECT * FROM detail");
 
            <br>
 
-        <table class="container table-sm table-hover">
+        <table class="container table table-sm table-hover table-stripped">
           <thead class=" table-primary text-dark text-center">
             <th>No</th>
             <th>Aksi</th>

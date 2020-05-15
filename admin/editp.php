@@ -143,15 +143,7 @@ function upload(){
       <li class="nav-item">
         <a class="nav-link" href="contact.php">
           <i class="fas fa-fw fa-phone"></i>
-          <span>Contact</span>
-        </a>
-      </li>
-
-      <!-- About -->
-      <li class="nav-item">
-        <a class="nav-link" href="about.php">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>About</span>
+          <span>Contact | About Us</span>
         </a>
       </li>
       
@@ -160,13 +152,6 @@ function upload(){
         <a class="nav-link" href="detail.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Detail</span></a>
-      </li>
-
-      <!-- Information -->
-      <li class="nav-item">
-        <a class="nav-link" href="info.php">
-          <i class="fas fa-fw fa-search"></i>
-          <span>Information</span></a>
       </li>
 
       <hr class="sidebar-divider d-none d-md-block">
@@ -254,7 +239,7 @@ function upload(){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Content</div>
-                          <input class="col-sm-12" type="text" name="content" id="content" value="<?php echo $pgs["content"]; ?>">
+                          <textarea cols="140" rows="5" name="content"><?php echo $pgs["content"]; ?></textarea>
                       </div>
                     </div>
                   </div>
