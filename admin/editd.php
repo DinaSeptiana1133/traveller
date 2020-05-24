@@ -6,103 +6,7 @@ if(!isset($_SESSION["login"])){
     exit;
 }
 
-require 'config/db.php';
-$id = $_GET["id"];
-$dtl = query("SELECT * FROM detail where id=$id")[0];
-if(isset($_POST["submit"])){
-
-  if(edit($_POST) > 0){
-    echo "
-      <script> alert('data berhasil diubah');
-        document.location.href = 'detail.php';
-      </script>";
-  } else {
-    echo "
-    <script> alert('data gagal diubah');
-      document.location.href = 'detail.php';
-    </script>";
-  }
-
-}
-
-function query($query){
-  global $db;
-  
-$result = mysqli_query($db, $query);
-$rows = [];
-while($row = mysqli_fetch_assoc($result)){
-  $rows[] = $row;
-}
-return $rows;
-}
-
-function edit($data){
-  global $db;
-
-  $id = $data["id"];
-  $title = $data["title"];
-  $content = $data["content"];
-  $fotoLama = $data["fotoLama"];
-
-  // cek apakah user pilih gambar baru atau tidak
-  if($_FILES['foto']['error'] === 4 ){
-    $foto = $fotoLama;
-  } else {
-    $foto = upload();
-  }
-
-  // query insert data
-  $query = "UPDATE detail SET
-              title = '$title',
-              content = '$content',
-              foto = '$foto'
-            where id=$id";
-  mysqli_query($db, $query);
-
-  return mysqli_affected_rows($db);
-}
-
-function upload(){
-  $namaFile = $_FILES['foto']['name'];
-  $ukuranFile = $_FILES['foto']['size'];
-  $error = $_FILES['foto']['error'];
-  $tmpName = $_FILES['foto']['tmp_name'];
-
-  // cek apakah tidak ada foto yang diupload
-  if($error === 4){
-      echo "<script> alert ('Pilih foto terlebih dahulu');
-      </script>";
-      return false;
-  }
-
-  // cek apakah yang diupload adalah foto atau bukan
-  $ekstensifotoValid = ['jpg','jpeg','png'];
-  $ekstensifoto = explode('.',$namaFile);
-  $ekstensifoto = strtolower(end($ekstensifoto));
-  if(!in_array($ekstensifoto, $ekstensifotoValid)){
-      echo "<script> alert ('Yang anda upload bukan foto');
-      </script>";
-      return false;
-  }
-
-  // cek jika ukuran terlalu besar
-  if($ukuranFile > 1000000){
-      echo "<script> alert ('Ukuran foto terlalu besar');
-      </script>";
-      return false;
-  }
-
-  // lolos pengecekan, foto siap diupload
-  // generate nama foto baru
-  $namaFileBaru = uniqid();
-  $namaFileBaru .= '.';
-  $namaFileBaru .= $ekstensifoto;
-
-
-  move_uploaded_file($tmpName, '../assets/images/detail/'.$namaFileBaru);
-  return $namaFileBaru;
-}
-
+require_once 'config/db.php';
 ?>
 
 <!DOCTYPE html>
@@ -196,6 +100,69 @@ function upload(){
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 text-gray">Edit Detail</h1>
           </div>
+
+
+
+
+          <?php
+//ambil data berdasarkan parameter GET id
+$dtl = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM detail where id='$_GET[id]'"));
+
+if(isset($_POST['submit'])){
+
+  //buat variabel dari setiap field name form produk
+$title= mysqli_real_escape_string($db, $_POST['title']);    //varibel field title
+$content= mysqli_real_escape_string($db, $_POST['content']);    //varibel field content
+
+$file=$_FILES['foto']['tmp_name'];    //temporary foto
+$nama_file=$_FILES ['foto']['name']; //ambil nama file
+$ukuran=$_FILES['foto']['size'];    //ukuran file
+$ekstensifoto = explode('.',$nama_file);
+$ekstensifoto = strtolower(end($ekstensifoto));  //extensi setelah .(titik)
+
+ if(empty($title)){    //jika nama kosong maka muncul pesan
+        $error="<p style='color:#F00;'>* Masukan Title Produk</p>";
+    }
+    elseif(empty($content)){  //jika deskripsi kosong maka muncul pesan
+        $error="<p style='color:#F00;'>* Masukan content Produk</p>";
+    }
+    else{
+    if(empty($file)){
+        $save=mysqli_query($db, "UPDATE detail set title='$title',content='$content' where id='$_GET[id]'");
+        if($save){ //jika update berhasil maka muncul pesan dan menuju ke halaman produk
+                   echo "<script>alert('Data Berhasil disimpan ke database');document.location='detail.php'</script>";
+        }else{  //jika update gagal maka muncul pesan
+                 echo "<script>alert('Proses simpan gagal, coba kembali');document.location='detail.php'</script>";
+         }
+
+    }else
+    if($ukuran > 2000000){
+        $error="<p style='color:#F00;'>* Ukuran File Maksimal 2MB</p>";
+    }
+    elseif(strlen($nama_file) > 225){
+        $error="<p style='color:#F00;'>* Nama File Maksimal 225 Karakter</p>";
+    }
+    elseif($ekstensifoto !="jpg" && $ekstensifoto !="png" && $ekstensifoto !="jpeg"){
+        $error="<p style='color:#F00;'>* Format File yang diizinkan hanya .jpg/.png/.jpeg</p>";
+    }
+    else{  //jika semua sudah terpenuhi maka simpan ke tb_produk
+
+      $namaFileBaru = uniqid();
+      $namaFileBaru .= '.';
+      $namaFileBaru .= $ekstensifoto;
+
+    move_uploaded_file($file,'../assets/images/detail/'.$namaFileBaru);    //upload foto baru
+
+    $save=mysqli_query($db, "UPDATE detail set title='$title',content='$content',foto='$namaFileBaru' where id='$_GET[id]'");
+    if($save){ //jika update berhasil maka muncul pesan dan menuju ke halaman produk
+        echo "<script>alert('Data Berhasil disimpan ke database');document.location='detail.php'</script>";
+    }else{  //jika update gagal maka muncul pesan
+         echo "<script>alert('Proses simpan gagal, coba kembali');document.location='detail.php'</script>";
+    }
+}
+}
+}
+?>
 
           <!-- Content Row -->
           <div class="row">
