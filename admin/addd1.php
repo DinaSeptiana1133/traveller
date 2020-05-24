@@ -36,7 +36,7 @@ if($foto != "") {
       } else {
         //tampil alert dan akan redirect ke halaman index.php
         //silahkan ganti index.php sesuai halaman yang akan dituju
-        echo "<script>alert('Data berhasil ditambah.');window.location='indexa.php';</script>";
+        echo "<script>alert('Data berhasil ditambah.');window.location='detail.php';</script>";
       }
 
   } else {     

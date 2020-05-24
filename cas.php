@@ -77,7 +77,7 @@
 									<textarea name="message" name="message" id="message" cols="30" rows="6" class="form-control" placeholder="Message"></textarea>
 								</div>
 								<div class="form-group">
-									<input type="submit" class="btn btn-primary btn-md" value="Send Message">
+									<input type="submit" class="btn btn-primary btn-md" name="submit" value="Send Message">
 								</div>
 							</div>
 						</div>

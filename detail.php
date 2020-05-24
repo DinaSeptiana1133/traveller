@@ -1,8 +1,6 @@
 <?php
 require_once 'admin/config/db.php';
 
-require 'admin/config/db.php';
-
 //kalau tidak ada id di query string
 if(!isset($_GET['id'])){
 	header('location:index.php');
@@ -66,17 +64,16 @@ $data = mysqli_fetch_array($query);
       </header>
       <!--End header-->
 
-      <section class="posts blog-2col">
+      <section>
         <div class="container">
         <h2 class="text-center"> <b> <?= $data["title"]; ?> </b> </h2> <br>
           <div class="row justify-content-center">
             <div class="col-12 col-md-9" align="justify">
               <div class="post-block post-classic">
                 <div class="post-img">
-                  <img src="assets/images/detail/<?= $data["foto"]; ?>" width="50%" alt="post image">
+                  <img src="assets/images/detail/<?= $data["foto"]; ?>" width="110%" height="50%" alt="post image">
                 </div>
-
-                <p class="container">
+                <p class="container mt-4 mb-4">
                   <?php echo $data["content"]; ?>
                 </p>
                 </div>

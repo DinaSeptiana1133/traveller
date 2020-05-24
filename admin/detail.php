@@ -18,7 +18,7 @@ while($row = mysqli_fetch_assoc($result)){
 return $rows;
 }
 
-$pgs = query("SELECT * FROM detail");
+$dtl = query("SELECT * FROM detail");
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +139,7 @@ $pgs = query("SELECT * FROM detail");
           <thead
 
         <?php $i=1; ?>
-        <?php foreach($pgs as $row) : ?>
+        <?php foreach($dtl as $row) : ?>
         <tr>
             <td><?php echo $i; ?></td>
             <td>

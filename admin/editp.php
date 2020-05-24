@@ -111,7 +111,7 @@ function upload(){
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Traveller</title>
+  <title>Traveller | Edit Pages</title>
   <link rel="shortcut icon" href="../assets/images/index/traveller.jpg">
   <link href="assets/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -141,7 +141,7 @@ function upload(){
 
       <!-- Contact -->
       <li class="nav-item">
-        <a class="nav-link" href="contact.php">
+        <a class="nav-link" href="cas.php">
           <i class="fas fa-fw fa-phone"></i>
           <span>Contact | About Us</span>
         </a>

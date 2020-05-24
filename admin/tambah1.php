@@ -1,6 +1,6 @@
 <?php
 // memanggil file koneksi.php untuk melakukan koneksi database
-include 'config/db.php';
+require 'config/db.php';
 
 	// membuat variabel untuk menampung data dari form
   $title      = $_POST['title'];

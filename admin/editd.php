@@ -11,18 +11,17 @@ $id = $_GET["id"];
 $dtl = query("SELECT * FROM detail where id=$id")[0];
 if(isset($_POST["submit"])){
 
-    if(edit($_POST) > 0){
-        echo "
-            <script> alert('data berhasil diubah');
-            document.location.href = 'indexa.php';
-            </script>
-        ";
-    } else {
-        echo "<script> alert('data gagal diubah');
-        document.location.href = 'indexa.php';
-        </script>
-        ";
-    }
+  if(edit($_POST) > 0){
+    echo "
+      <script> alert('data berhasil diubah');
+        document.location.href = 'detail.php';
+      </script>";
+  } else {
+    echo "
+    <script> alert('data gagal diubah');
+      document.location.href = 'detail.php';
+    </script>";
+  }
 
 }
 
@@ -112,7 +111,7 @@ function upload(){
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Traveller</title>
+  <title>Traveller | Edit Detail</title>
   <link rel="shortcut icon" href="../assets/images/index/traveller.jpg">
   <link href="assets/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -155,7 +154,6 @@ function upload(){
           <span>Detail</span></a>
       </li>
 
-
       <hr class="sidebar-divider d-none d-md-block">
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -196,7 +194,7 @@ function upload(){
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 text-gray">Edit Pages</h1>
+            <h1 class="h3 text-gray">Edit Detail</h1>
           </div>
 
           <!-- Content Row -->
@@ -241,7 +239,7 @@ function upload(){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Content</div>
-                          <textarea cols="140" rows="25" name="content"><?php echo $dtl["content"]; ?></textarea>
+                          <textarea cols="140" rows="5" name="content"><?php echo $dtl["content"]; ?></textarea>
                       </div>
                     </div>
                   </div>
@@ -297,7 +295,7 @@ function upload(){
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Logout Right Now?</div>
+        <div class="modal-body">Apakah anda yakin akan logout?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="index.php">Logout</a>

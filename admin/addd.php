@@ -29,7 +29,7 @@ include('config/db.php');
       <center>
         <h1 class="mt-4 text-primary">Tambah Data</h1> <a class="container" href="detail.php">Cancel</a>
       <center>
-      <form method="POST" action="tambah1.php" enctype="multipart/form-data" >
+      <form method="POST" action="addd1.php" enctype="multipart/form-data" >
       <section class="base">
         <div>
           <label>Title :</label>
