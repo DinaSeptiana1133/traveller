@@ -44,7 +44,7 @@ include('config/db.php');
          <input type="file" name="foto" required="" />
         </div>
         <div>
-         <button class="btn btn-primary" type="submit">Simpan Produk</button>
+         <button class="btn btn-primary" type="submit">Simpan</button>
         </div>
         </section>
       </form>

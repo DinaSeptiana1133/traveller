@@ -1,3 +1,25 @@
+<?php
+require_once 'admin/config/db.php';
+
+if(isset($_POST['submit'])){
+
+$name       =$_POST['name'];
+$email      =$_POST['email'];
+$phone      =$_POST['phone'];
+$message    =$_POST['message'];
+
+$query= "INSERT INTO contact (name,email,phone,message) VALUES ('$name','$email','$phone','$message')";
+$result = mysqli_query($db, $query);
+
+if($result) {
+    echo "<script>alert('Data berhasil dikirim.');window.location='cas.php';</script>";
+} else {
+  echo "<script>alert('Data gagal dikirim.');window.location='cas.php';</script>";
+}
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,7 +78,7 @@
 
     <!-- Contact Section Begin -->
     <div class="container">
-			<form action="Proses.php" method="POST">
+			<form action="" method="POST">
 				<div class="row mt-5">
 					<div class="col-md-12"> 
             <h2 class="text-center bg-secondary"> Contact </h2>
